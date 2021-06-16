@@ -1,0 +1,2 @@
+com/krcombasic/ipe/springboot/web/HelloControllerTest.java
+ com.krcombasic.ipe.springboot.web.HelloControllerTest
