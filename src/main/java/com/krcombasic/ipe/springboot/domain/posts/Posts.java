@@ -1,5 +1,6 @@
 package com.krcombasic.ipe.springboot.domain.posts;
 
+import com.krcombasic.ipe.springboot.domain.BaseTimeEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,7 +11,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity //Entity 클래스에서는 절대 Setter 메소드를 만들지 않습니다.
 //Setter 가 없는 이 상황에서 어떻게 값을 채워 DB에 삽입해야 할까요?
-public class Posts {
+public class Posts extends BaseTimeEntity {
     @Id //해당 테이블의 PK를 나타낸다.
     @GeneratedValue(strategy = GenerationType.IDENTITY) //PK의 생성규칙, auto_increament 가 되라!
     private Long id;

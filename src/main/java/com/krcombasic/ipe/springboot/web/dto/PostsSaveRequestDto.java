@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class PostsSaveRequestDto {
-//  Request 와 Response 용 Dto 는 View 를 위한 클래이다.
+//  Request 와 Response 용 Dto 는 View 를 위한 클래스다.
     private String title;
     private String content;
     private String author;
