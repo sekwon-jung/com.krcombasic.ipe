@@ -1,5 +1,6 @@
 package com.krcombasic.ipe.springboot.web;
 
+import com.krcombasic.ipe.springboot.config.auth.dto.SessionUser;
 import com.krcombasic.ipe.springboot.service.posts.PostsService;
 import com.krcombasic.ipe.springboot.web.dto.PostsResponseDto;
 import lombok.RequiredArgsConstructor;
@@ -8,10 +9,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import javax.servlet.http.HttpSession;
+
 @RequiredArgsConstructor
 @Controller
 public class IndexController {
     private final PostsService postsService;
+    private final HttpSession httpSession;
 
     @GetMapping("/")
     //model 을 이용해 데이터를 가져오고 view 에 데이터를 넘겨 적절한 view 를 생성하는 역할을 한다.
@@ -19,6 +23,10 @@ public class IndexController {
         model.addAttribute("posts", postsService.findAllDesc());
         //view 에 전달할 데이터를 key, value 쌍으로 전달할 수 있다.
         //postsService.findAllDesc() 로 가져온 결과를, posts 란 이름으로 index.mustache 에 전달한다.
+        SessionUser user = (SessionUser) httpSession.getAttribute("user");
+        if(user != null){
+            model.addAttribute("userName", user.getName());
+        }
         return "index";
     }
 
