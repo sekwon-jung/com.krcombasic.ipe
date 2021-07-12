@@ -1,5 +1,6 @@
 package com.krcombasic.ipe.springboot.web;
 
+import com.krcombasic.ipe.springboot.config.auth.LoginUser;
 import com.krcombasic.ipe.springboot.config.auth.dto.SessionUser;
 import com.krcombasic.ipe.springboot.service.posts.PostsService;
 import com.krcombasic.ipe.springboot.web.dto.PostsResponseDto;
@@ -15,15 +16,14 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class IndexController {
     private final PostsService postsService;
-    private final HttpSession httpSession;
 
     @GetMapping("/")
     //model 을 이용해 데이터를 가져오고 view 에 데이터를 넘겨 적절한 view 를 생성하는 역할을 한다.
-    public String index(Model model){
+    public String index(Model model, @LoginUser SessionUser user){
+// 어느 컨트롤러든지 @LoginUser 만 사용하면 세션 정보를 가져올 수 있게 되었습니다.
         model.addAttribute("posts", postsService.findAllDesc());
         //view 에 전달할 데이터를 key, value 쌍으로 전달할 수 있다.
         //postsService.findAllDesc() 로 가져온 결과를, posts 란 이름으로 index.mustache 에 전달한다.
-        SessionUser user = (SessionUser) httpSession.getAttribute("user");
         if(user != null){
             model.addAttribute("userName", user.getName());
         }
